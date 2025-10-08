@@ -1,6 +1,6 @@
 public class deque {
-    int N;
-    no inicio, fim;
+    private int N;
+    private no inicio, fim;
 
     public deque(){
         this.N=0;

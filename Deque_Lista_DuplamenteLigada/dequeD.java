@@ -1,6 +1,6 @@
 public class dequeD {
-    int N;
-    noD inicio, fim;
+    private int N;
+    private noD inicio, fim;
 
     public dequeD(){
         this.N=0;
