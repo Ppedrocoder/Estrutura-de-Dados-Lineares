@@ -33,7 +33,7 @@ public class teste {
         System.out.println(deque.ultimo());
         System.out.println(deque.tamanho());
         System.out.println("deixar deque vazio");
-        deque.removerInicio();
+        deque.removerFim();
         System.out.println(deque.estaVazia());
         
         System.out.println("remoção deque vazio");

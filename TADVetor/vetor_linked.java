@@ -3,8 +3,10 @@ public class vetor_linked{
     private no fim;
     private int size;
     public vetor_linked(){
-        this.inicio = null;
-        this.fim = null;
+        this.inicio = new no();
+        this.fim = new no();
+        this.inicio.setNext(fim);
+        this.fim.setPrev(inicio);
         this.size = 0;
     }
     public int size(){
@@ -14,6 +16,12 @@ public class vetor_linked{
         return this.size == 0;
     }
     public Object elementAtRank(int rank){
+        if(isEmpty()){
+            throw new RuntimeException("Vetor Vazio");
+        }
+        if(rank < 0 || rank > size()-1){
+            throw new RuntimeException("Fora dos Limites");
+        }
         no current = inicio;
         for(int i = 0; i < size-1; i++){
             if (i == rank) {
@@ -24,8 +32,14 @@ public class vetor_linked{
         return current.getValue();
     }
     public void replaceAtRank(int rank, Object element){
+        if(isEmpty()){
+            throw new RuntimeException("Vetor Vazio");
+        }
+        if(rank < 0 || rank > size()-1){
+            throw new RuntimeException("Fora dos Limites");
+        }
         no current = inicio;
-        for(int i = 0; i < size-1; i++){
+        for(int i = 0; i < size()-1; i++){
             if (i == rank) {
                 current.setValue(element);
             }
@@ -33,7 +47,7 @@ public class vetor_linked{
         }
     }
     public void insertAtRank(int rank, Object o){
-        if (rank < 0 || rank > size()) {
+        if (rank < 0 || rank > size()-1) {
             throw new RuntimeException("Fora dos Limites");
         }
         no node = new no();
@@ -45,7 +59,7 @@ public class vetor_linked{
         }
         else{
             no current = inicio;
-            for(int i = 0; i < size-1; i++){
+            for(int i = 0; i < size()-1; i++){
                 if (i == rank) {
                     current.getPrev().setNext(node);
                     current.setPrev(node);
@@ -61,17 +75,17 @@ public class vetor_linked{
         if (isEmpty()) {
             throw new RuntimeException("Vetor Vazio");
         }
-        if (rank < 0 || rank > size()) {
+        if (rank < 0 || rank > size()-1) {
             throw new RuntimeException("Fora dos Limites");
         }
         if (size() == 1) {
-            this.inicio = null;
-            this.fim = null;
+            this.inicio.setNext(fim);
+            this.fim.setPrev(inicio);
             size--;
             return;
         }
         no current = inicio;
-        for(int i = 0; i < size-1; i++){
+        for(int i = 0; i < size()-1; i++){
             if (i == rank) {
                 no anteriNo = current.getPrev();
                 no proximoNo = current.getNext();
