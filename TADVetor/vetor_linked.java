@@ -32,10 +32,12 @@ public class vetor_linked{
             current = current.getNext();
         }
     }
-    public void insertAtRank(int rank, no node){
+    public void insertAtRank(int rank, Object o){
         if (rank < 0 || rank > size()) {
             throw new RuntimeException("Fora dos Limites");
         }
+        no node = new no();
+        node.setValue(o);
         if (isEmpty()) {
             inicio.setNext(node);
             fim.setPrev(node);
