@@ -5,7 +5,7 @@ public class vetor_array {
 
     public vetor_array() {
         this.size = 0;
-        this.capacity = 1;
+        this.capacity = 8;
         this.vetor = new Object[capacity];
     }
 
@@ -44,17 +44,19 @@ public class vetor_array {
     }
     public void insertAtRank(int rank, Object element){
         if(isEmpty()){
-            throw new RuntimeException("Vetor Vazio");
+            this.size+=1;
+            this.vetor[0]=element;
+            return;
         }
         if(rank < 0 || rank > size()-1){
             throw new RuntimeException("Fora dos Limites");
         }
         if(size()+1 > this.capacity) increase_capacity();
-        this.size += 1;
         for (int i = size()-1; i > rank; i--) {
             this.vetor[i] = this.vetor[i-1];
         }
         this.vetor[rank] = element;
+        this.size+=1;
     }
     public void removeAtRank(int rank){
         if(isEmpty()){
@@ -63,7 +65,10 @@ public class vetor_array {
         if(rank < 0 || rank > size()-1){
             throw new RuntimeException("Fora dos Limites");
         }
-        if(rank == size()-1) this.size -=1;
+        if(rank == size()-1){
+            this.size -=1;
+            return;
+        } 
         for (int i = rank; i < size()-1; i++) {
             this.vetor[i] = this.vetor[i+1];
         }
