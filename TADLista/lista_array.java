@@ -19,10 +19,10 @@ public class lista_array {
     }
     public boolean isFirst(Object n){
         if(isEmpty()) throw new RuntimeException("Lista Vazia");
-        return a[0] == n;
+        return n.equals(a[0]);
     }
     public boolean isLast(Object n){
-        return a[size()-1] == n;
+        return n.equals(a[0]);
     }
     public Object first(){
         return a[0];
