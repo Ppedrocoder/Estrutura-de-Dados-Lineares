@@ -2,11 +2,6 @@ public class no{
     private Object value;
     private no next;
     private no prev;
-    public no(){
-        this.value = null;
-        this.next = null;
-        this.prev = null;
-    }
     public void setValue(Object o){
         this.value = o;
     }

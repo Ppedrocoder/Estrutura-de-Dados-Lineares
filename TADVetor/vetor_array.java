@@ -11,7 +11,7 @@ public class vetor_array {
 
     private void increase_capacity(){
         Object new_vetor[] = new Object[capacity * 2];
-        for (int i = 0; i < size()-1; i++) {
+        for (int i = 0; i < size(); i++) {
             new_vetor[i] = this.vetor[i];
         }
         this.capacity *= 2;
@@ -28,7 +28,7 @@ public class vetor_array {
         if(isEmpty()){
             throw new RuntimeException("Vetor Vazio");
         }
-        if(rank < 0 || rank > size()-1){
+        if(rank < 0 || rank >= size()){
             throw new RuntimeException("Fora dos Limites");
         }
         return this.vetor[rank];
@@ -37,41 +37,36 @@ public class vetor_array {
         if(isEmpty()){
             throw new RuntimeException("Vetor Vazio");
         }
-        if(rank < 0 || rank > size()-1){
+        if(rank < 0 || rank >= size()){
             throw new RuntimeException("Fora dos Limites");
         }
         this.vetor[rank] = element;
     }
     public void insertAtRank(int rank, Object element){
-        if(isEmpty()){
-            this.size+=1;
-            this.vetor[0]=element;
-            return;
-        }
-        if(rank < 0 || rank > size()-1){
+        if(rank < 0 || rank > size()){
             throw new RuntimeException("Fora dos Limites");
         }
-        if(size()+1 > this.capacity) increase_capacity();
-        for (int i = size()-1; i > rank; i--) {
+        if(size() == this.capacity) increase_capacity();
+        for (int i = size(); i > rank; i--) {
             this.vetor[i] = this.vetor[i-1];
         }
         this.vetor[rank] = element;
-        this.size+=1;
+        this.size++;
     }
     public void removeAtRank(int rank){
         if(isEmpty()){
             throw new RuntimeException("Vetor Vazio");
         }
-        if(rank < 0 || rank > size()-1){
+        if(rank < 0 || rank >= size()){
             throw new RuntimeException("Fora dos Limites");
         }
         if(rank == size()-1){
-            this.size -=1;
+            this.size--;
             return;
         } 
         for (int i = rank; i < size()-1; i++) {
             this.vetor[i] = this.vetor[i+1];
         }
-        this.size -=1;
+        this.size--;
     }
 }

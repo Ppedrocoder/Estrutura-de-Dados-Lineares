@@ -19,10 +19,10 @@ public class vetor_linked{
         if(isEmpty()){
             throw new RuntimeException("Vetor Vazio");
         }
-        if(rank < 0 || rank > size()-1){
+        if(rank < 0 || rank >= size()){
             throw new RuntimeException("Fora dos Limites");
         }
-        no current = inicio;
+        no current = inicio.getNext();
         for(int i = 0; i < size-1; i++){
             if (i == rank) {
                 break; 
@@ -35,38 +35,32 @@ public class vetor_linked{
         if(isEmpty()){
             throw new RuntimeException("Vetor Vazio");
         }
-        if(rank < 0 || rank > size()-1){
+        if(rank < 0 || rank >= size()){
             throw new RuntimeException("Fora dos Limites");
         }
-        no current = inicio;
-        for(int i = 0; i < size()-1; i++){
-            if (i == rank) {
-                current.setValue(element);
-            }
+        no current = inicio.getNext();
+        for(int i = 0; i < rank; i++){
             current = current.getNext();
         }
+        current.setValue(element);
     }
     public void insertAtRank(int rank, Object o){
-        if (rank < 0 || rank > size()-1) {
+        if (rank < 0 || rank > size()) {
             throw new RuntimeException("Fora dos Limites");
         }
-        no node = new no();
-        node.setValue(o);
-        if (isEmpty()) {
-            inicio.setNext(node);
-            fim.setPrev(node);
-            this.size++;
-        }
+        
         else{
-            no current = inicio;
-            for(int i = 0; i < size()-1; i++){
-                if (i == rank) {
-                    current.getPrev().setNext(node);
-                    current.setPrev(node);
-                    break; 
-                }
+            no node = new no();
+            node.setValue(o);
+            no current = inicio.getNext();
+            for(int i = 0; i < rank; i++){
                 current = current.getNext();
             }
+            no anterior = current.getPrev();
+            node.setNext(current);
+            node.setPrev(anterior);
+            anterior.setNext(node);
+            current.setPrev(node);
             this.size++;
         }
         
@@ -75,25 +69,17 @@ public class vetor_linked{
         if (isEmpty()) {
             throw new RuntimeException("Vetor Vazio");
         }
-        if (rank < 0 || rank > size()-1) {
+        if (rank < 0 || rank >= size()) {
             throw new RuntimeException("Fora dos Limites");
         }
-        if (size() == 1) {
-            this.inicio.setNext(fim);
-            this.fim.setPrev(inicio);
-            size--;
-            return;
-        }
-        no current = inicio;
-        for(int i = 0; i < size()-1; i++){
-            if (i == rank) {
-                no anteriNo = current.getPrev();
-                no proximoNo = current.getNext();
-                anteriNo.setNext(proximoNo);
-                proximoNo.setPrev(anteriNo);
-                break; 
-            }
+        no current = inicio.getNext();
+        for(int i = 0; i < rank; i++){
             current = current.getNext();
         }
+        no anteriNo = current.getPrev();
+        no proximoNo = current.getNext();
+        anteriNo.setNext(proximoNo);
+        proximoNo.setPrev(anteriNo);
+        this.size--;
     }
 }
