@@ -21,6 +21,16 @@ public class lista_linked {
         }
         return -1;
     }
+    private no findnode(int p){
+        no currante = inicio.getNext();
+        for (int i = 0; i < size(); i++) {
+            if(i == p){
+                return currante;
+            }
+            currante = currante.getNext();
+        }
+        return null;
+    }
     public int size(){
         return this.size;
     }
@@ -41,21 +51,23 @@ public class lista_linked {
     }
     public Object first(){
         if(isEmpty()) throw new RuntimeException("Lista Vazia");
-        return inicio.getNext();
+        return inicio.getNext().getValue();
     }
     public Object last(){
         if(isEmpty()) throw new RuntimeException("Lista Vazia");
-        return fim.getPrev();
+        return fim.getPrev().getValue();
     }
-    public Object before(no node){
+    public Object before(int p){
         if(isEmpty()) throw new RuntimeException("Lista Vazia");
-        if(find(node) == -1) throw new RuntimeException("Elemento não encontrado");
-        return node.getPrev();
+        if(p <0 || p > size()-1) throw new RuntimeException("Fora dos Limites");
+        no atual = findnode(p);
+        return atual.getPrev().getValue();
     }
-    public Object after(no node){
+    public Object after(int p){
         if(isEmpty()) throw new RuntimeException("Lista Vazia");
-        if(find(node) == -1) throw new RuntimeException("Elemento não encontrado");
-        return node.getNext();
+        if(p <0 || p > size()-1) throw new RuntimeException("Fora dos Limites");
+        no atual = findnode(p);
+        return atual.getNext().getValue();
     }
     public void replaceElement(no node, Object o){
         if(isEmpty()) throw new RuntimeException("Lista Vazia");
@@ -75,6 +87,7 @@ public class lista_linked {
         novo.setValue(o);
         novo.setNext(node);
         novo.setPrev(node.getPrev());
+        (node.getPrev()).setNext(novo);
         node.setPrev(novo);
         this.size++;
     }
@@ -84,24 +97,25 @@ public class lista_linked {
         novo.setValue(o);
         novo.setPrev(node);
         novo.setNext(node.getNext());
+        (node.getNext()).setPrev(novo);
         node.setNext(novo);
         this.size++;
     }
-    public void insertFirst(no node, Object o){
-        if(find(node) == -1) throw new RuntimeException("Elemento não encontrado");
+    public void insertFirst(Object o){
         no novo = new no();
         novo.setValue(o);
         novo.setPrev(inicio);
         novo.setNext(inicio.getNext());
+        (inicio.getNext()).setPrev(novo);
         inicio.setNext(novo);
         this.size++;
     }
-    public void insertLast(no node, Object o){
-        if(find(node) == -1) throw new RuntimeException("Elemento não encontrado");
+    public void insertLast(Object o){
         no novo = new no();
         novo.setValue(o);
         novo.setNext(fim);
         novo.setPrev(fim.getPrev());
+        (fim.getPrev()).setNext(novo);
         fim.setPrev(novo);
         this.size++;
     }
