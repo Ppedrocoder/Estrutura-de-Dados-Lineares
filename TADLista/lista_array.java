@@ -11,6 +11,14 @@ public class lista_array {
         this.capacity = 8;
         this.a = new Object[this.capacity];
     }
+    private void increase_capacity(){
+        Object new_vetor[] = new Object[capacity * 2];
+        for (int i = 0; i < size(); i++) {
+            new_vetor[i] = this.a[i];
+        }
+        this.capacity *= 2;
+        this.a = new_vetor;
+    }
     public int size(){
         return this.size;
     }
@@ -22,21 +30,29 @@ public class lista_array {
         return n.equals(a[0]);
     }
     public boolean isLast(Object n){
+        if(isEmpty()) throw new RuntimeException("Lista Vazia");
         return n.equals(a[0]);
     }
     public Object first(){
+        if(isEmpty()) throw new RuntimeException("Lista Vazia");
         return a[0];
     } 
     public Object last(){
+        if(isEmpty()) throw new RuntimeException("Lista Vazia");
         return a[size()-1];
     }
     public Object before(int rank){
+        if(isEmpty()) throw new RuntimeException("Lista Vazia");
+        if(a[rank-1] == null) throw new RuntimeException("Fora dos limites");
         return a[rank-1];
     } 
     public Object after(int rank){
+        if(isEmpty()) throw new RuntimeException("Lista Vazia");
+        if(a[rank+1] == null) throw new RuntimeException("Fora dos limites");
         return a[rank+1];
     }
     public void replaceElement(Object atual, Object novo){
+        if(isEmpty()) throw new RuntimeException("Lista Vazia");
         for (int i = 0; i < size(); i++) {
             if(a[i] == atual){
                 a[i] = novo; 
@@ -48,6 +64,7 @@ public class lista_array {
         }
     }
     public void swapElements(Object n, Object o){
+        if(isEmpty()) throw new RuntimeException("Lista Vazia");
         int index_n = -1;
         int index_o = -1;
         for (int i = 0; i < size(); i++) {
@@ -61,6 +78,7 @@ public class lista_array {
         a[index_o] = n;
     }
     public void insertBefore(Object atual, Object novo){
+        if(size() == this.capacity) increase_capacity();
         int index_atual = -1;
         for (int i = 0; i < size(); i++) {
             if(a[i] == atual) index_atual = i;
@@ -74,8 +92,13 @@ public class lista_array {
         a[index_atual-1] = novo;
         this.size++;
     }
-    public void insertAfter(){}
+    public void insertAfter(Object o){
+        if(size() == this.capacity) increase_capacity();
+        this.size++;
+        a[size()-1] = o;
+    }
     public void insertFirst(Object o){
+        if(size() == this.capacity) increase_capacity();
         for (int i = size(); i > 0; i++) {
             a[i] = a[i-1];
         }
@@ -83,8 +106,27 @@ public class lista_array {
         this.size++;
     }
     public void insertLast(Object o){
+        if(size() == this.capacity) increase_capacity();
         a[size()] = o;
         this.size++;
     }
-    public void remove(){}
+    public void remove(Object o){
+        if(isEmpty()){
+            throw new RuntimeException("Lista Vazia");
+        }
+        int index = -1;
+        for (int i = 0; i < size(); i++) {
+            if(a[i] == o){
+                index = i;
+                break;
+            }
+        }
+        if(index == -1){
+            throw new RuntimeException("Elemento não encontrado");
+        }
+        for (int i = index; i < size()-1; i++) {
+            a[i] = a[i + 1];
+        }
+        this.size--;
+    }
 }
