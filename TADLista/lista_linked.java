@@ -59,13 +59,17 @@ public class lista_linked {
     }
     public Object before(int p){
         if(isEmpty()) throw new RuntimeException("Lista Vazia");
-        if(p <0 || p > size()-1) throw new RuntimeException("Fora dos Limites");
+        if(p < 0 || p > size()-1) throw new RuntimeException("Fora dos Limites");
+        if(p == 0) throw new RuntimeException("Elemento não Encontrado");
+        if(findnode(p).getPrev().equals(inicio)) throw new RuntimeException("Fora dos Limites");
         no atual = findnode(p);
         return atual.getPrev().getValue();
     }
     public Object after(int p){
         if(isEmpty()) throw new RuntimeException("Lista Vazia");
         if(p <0 || p > size()-1) throw new RuntimeException("Fora dos Limites");
+        if(p == size()-1) throw new RuntimeException("Elemento não Encontrado");
+        if(findnode(p).getNext().equals(fim)) throw new RuntimeException("Fora dos Limites");
         no atual = findnode(p);
         return atual.getNext().getValue();
     }
@@ -77,6 +81,7 @@ public class lista_linked {
     public void swapElements(no um, no dois){
         if(isEmpty()) throw new RuntimeException("Lista Vazia");
         if(find(um) == -1 || find(dois) == -1) throw new RuntimeException("Elemento não encontrado");
+        if(size() < 2) throw new RuntimeException("Número de Elementos Menor que Dois");
         Object value_um = um.getValue();
         um.setValue(dois.getValue());
         dois.setValue(value_um); 
