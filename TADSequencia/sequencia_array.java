@@ -1,14 +1,16 @@
-package TADLista;
+package TADSequencia;
 
-public class lista_array {
+public class sequencia_array {
     private int size;
     private int capacity;
-    private Object[] a;
-    public lista_array(){
+    private Object a[];
+
+    public sequencia_array() {
         this.size = 0;
         this.capacity = 8;
-        this.a = new Object[this.capacity];
+        this.a = new Object[capacity];
     }
+
     private void increase_capacity(){
         Object new_vetor[] = new Object[capacity * 2];
         for (int i = 0; i < size(); i++) {
@@ -17,40 +19,86 @@ public class lista_array {
         this.capacity *= 2;
         this.a = new_vetor;
     }
+
     public int size(){
         return this.size;
     }
     public boolean isEmpty(){
         return this.size == 0;
     }
+    public Object elementAtRank(int rank){
+        if(isEmpty()){
+            throw new RuntimeException("Sequencia Vazia");
+        }
+        if(rank < 0 || rank >= size()){
+            throw new RuntimeException("Fora dos Limites");
+        }
+        return this.a[rank];
+    }
+    public void replaceAtRank(int rank, Object element){
+        if(isEmpty()){
+            throw new RuntimeException("Sequencia Vazia");
+        }
+        if(rank < 0 || rank >= size()){
+            throw new RuntimeException("Fora dos Limites");
+        }
+        this.a[rank] = element;
+    }
+    public void insertAtRank(int rank, Object element){
+        if(rank < 0 || rank > size()){
+            throw new RuntimeException("Fora dos Limites");
+        }
+        if(size() == this.capacity) increase_capacity();
+        for (int i = size(); i > rank; i--) {
+            this.a[i] = this.a[i-1];
+        }
+        this.a[rank] = element;
+        this.size++;
+    }
+    public void removeAtRank(int rank){
+        if(isEmpty()){
+            throw new RuntimeException("Sequencia Vazia");
+        }
+        if(rank < 0 || rank >= size()){
+            throw new RuntimeException("Fora dos Limites");
+        }
+        if(rank == size()-1){
+            this.size--;
+            return;
+        } 
+        for (int i = rank; i < size()-1; i++) {
+            this.a[i] = this.a[i+1];
+        }
+        this.size--;
+    }
     public boolean isFirst(Object n){
-        if(isEmpty()) throw new RuntimeException("Lista Vazia");
+        if(isEmpty()) throw new RuntimeException("Sequencia Vazia");
         return n.equals(a[0]);
     }
     public boolean isLast(Object n){
-        if(isEmpty()) throw new RuntimeException("Lista Vazia");
+        if(isEmpty()) throw new RuntimeException("Sequencia Vazia");
         return n.equals(a[size()-1]);
     }
     public Object first(){
-        if(isEmpty()) throw new RuntimeException("Lista Vazia");
+        if(isEmpty()) throw new RuntimeException("Sequencia Vazia");
         return a[0];
     } 
     public Object last(){
-        if(isEmpty()) throw new RuntimeException("Lista Vazia");
+        if(isEmpty()) throw new RuntimeException("Sequencia Vazia");
         return a[size()-1];
     }
     public Object before(int rank){
-        if(isEmpty()) throw new RuntimeException("Lista Vazia");
+        if(isEmpty()) throw new RuntimeException("Sequencia Vazia");
         if(rank <= 0 || rank >= size()) throw new RuntimeException("Fora dos limites");
         return a[rank-1];
     } 
     public Object after(int rank){
-        if(isEmpty()) throw new RuntimeException("Lista Vazia");
+        if(isEmpty()) throw new RuntimeException("Sequencia Vazia");
         if(rank < 0 || rank >= size()-1) throw new RuntimeException("Fora dos limites");
         return a[rank+1];
     }
     public void replaceElement(Object atual, Object novo){
-        if(isEmpty()) throw new RuntimeException("Lista Vazia");
+        if(isEmpty()) throw new RuntimeException("Sequencia Vazia");
         for (int i = 0; i < size(); i++) {
             if(a[i].equals(atual)){
                 a[i] = novo; 
@@ -62,7 +110,7 @@ public class lista_array {
         }
     }
     public void swapElements(Object n, Object o){
-        if(isEmpty()) throw new RuntimeException("Lista Vazia");
+        if(isEmpty()) throw new RuntimeException("Sequencia Vazia");
         int index_n = -1;
         int index_o = -1;
         for (int i = 0; i < size(); i++) {
@@ -138,7 +186,7 @@ public class lista_array {
     }
     public void remove(Object o){
         if(isEmpty()){
-            throw new RuntimeException("Lista Vazia");
+            throw new RuntimeException("Sequencia Vazia");
         }
         int index = -1;
         for (int i = 0; i < size(); i++) {
@@ -157,3 +205,5 @@ public class lista_array {
         this.size--;
     }
 }
+
+
