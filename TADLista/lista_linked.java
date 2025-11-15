@@ -21,7 +21,7 @@ public class lista_linked {
         }
         return -1;
     }
-    private no findnode(int p){
+    public no findnode(int p){
         no currante = inicio.getNext();
         for (int i = 0; i < size(); i++) {
             if(i == p){
@@ -51,11 +51,11 @@ public class lista_linked {
     }
     public Object first(){
         if(isEmpty()) throw new RuntimeException("Lista Vazia");
-        return inicio.getNext().getValue();
+        return (inicio.getNext()).getValue();
     }
     public Object last(){
         if(isEmpty()) throw new RuntimeException("Lista Vazia");
-        return fim.getPrev().getValue();
+        return (fim.getPrev()).getValue();
     }
     public Object before(int p){
         if(isEmpty()) throw new RuntimeException("Lista Vazia");

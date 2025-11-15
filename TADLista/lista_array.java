@@ -117,14 +117,24 @@ public class lista_array {
     }
     public void insertFirst(Object o){
         if(size() == this.capacity) increase_capacity();
-        for (int i = size(); i > 0; i++) {
+        if (isEmpty()){
+            a[0] = o;
+            this.size++;
+            return;
+        }
+        for (int i = size(); i > 0; i--) {
             a[i] = a[i-1];
         }
         a[0] = o;
         this.size++;
     }
     public void insertLast(Object o){
-        if(size() == this.capacity) increase_capacity();
+        if(size()+1 == this.capacity) increase_capacity();
+        if(isEmpty()){
+            a[0] = o;
+            this.size++;
+            return;
+        }
         a[size()] = o;
         this.size++;
     }
