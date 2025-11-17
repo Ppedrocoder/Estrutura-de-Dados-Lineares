@@ -44,14 +44,8 @@ public class sequencia_linked {
         if(rank < 0 || rank >= size()){
             throw new RuntimeException("Fora dos Limites");
         }
-        no current = inicio.getNext();
-        for(int i = 0; i < size-1; i++){
-            if (i == rank) {
-                break; 
-            }
-            current = current.getNext();
-        }
-        return current.getValue();
+        
+        return (findnode(rank)).getValue();
     }
     public void replaceAtRank(int rank, Object element){
         if(isEmpty()){
