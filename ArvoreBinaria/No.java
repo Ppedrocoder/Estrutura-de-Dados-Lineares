@@ -17,6 +17,12 @@ public class No {
         left_child = null;
         right_child = null;
     }
+    public No(No Parent) {
+        this.element = null;
+        parent = Parent;
+        left_child = null;
+        right_child = null;
+    }
     public void setElement(Object element) {
         this.element = element;
     }
