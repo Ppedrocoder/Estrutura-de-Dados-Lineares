@@ -31,9 +31,15 @@ public class No {
     }
     public void setLeftChild(No left_child) {
         this.left_child = left_child;
+        if (left_child != null) {
+            left_child.setParent(this);
+        }
     }
     public void setRightChild(No right_child) {
         this.right_child = right_child;
+        if (right_child != null) {
+            right_child.setParent(this);
+        }
     }
     public Object getElement() {
         return element;
